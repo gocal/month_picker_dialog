@@ -19,6 +19,7 @@ Future<DateTime> showMonthPicker({
   DateTime firstDate,
   DateTime lastDate,
   Locale locale,
+  TransitionBuilder builder,
 }) async {
   assert(context != null);
   assert(initialDate != null);
@@ -26,15 +27,18 @@ Future<DateTime> showMonthPicker({
       ? MaterialLocalizations.of(context)
       : await GlobalMaterialLocalizations.delegate.load(locale);
   assert(localizations != null);
+
+  final dialog = _MonthPickerDialog(
+    initialDate: initialDate,
+    firstDate: firstDate,
+    lastDate: lastDate,
+    locale: locale,
+    localizations: localizations,
+  );
+
   return await showDialog<DateTime>(
     context: context,
-    builder: (context) => _MonthPickerDialog(
-      initialDate: initialDate,
-      firstDate: firstDate,
-      lastDate: lastDate,
-      locale: locale,
-      localizations: localizations,
-    ),
+    builder: (context) => builder == null ? dialog : builder(context, dialog),
   );
 }
 
