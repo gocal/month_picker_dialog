@@ -14,19 +14,16 @@ import 'package:rxdart/rxdart.dart';
 /// [firstDate] is the optional lower bound for month selection.
 /// [lastDate] is the optional upper bound for month selection.
 Future<DateTime?> showMonthPicker({
-  @required BuildContext context,
-  @required DateTime initialDate,
+  required BuildContext context,
+  required DateTime initialDate,
   DateTime? firstDate,
   DateTime? lastDate,
   Locale? locale,
   TransitionBuilder? builder,
 }) async {
-  assert(context != null);
-  assert(initialDate != null);
   final localizations = locale == null
       ? MaterialLocalizations.of(context)
       : await GlobalMaterialLocalizations.delegate.load(locale);
-  assert(localizations != null);
 
   final dialog = _MonthPickerDialog(
     initialDate: initialDate,
@@ -74,7 +71,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   @override
   void initState() {
     super.initState();
-    selectedDate = DateTime(widget.initialDate!.year, widget.initialDate!.month);
+    selectedDate =
+        DateTime(widget.initialDate!.year, widget.initialDate!.month);
     if (widget.firstDate != null)
       _firstDate = DateTime(widget.firstDate!.year, widget.firstDate!.month);
     if (widget.lastDate != null)
