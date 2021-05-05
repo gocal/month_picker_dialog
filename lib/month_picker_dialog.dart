@@ -19,7 +19,7 @@ Future<DateTime?> showMonthPicker({
   DateTime? firstDate,
   DateTime? lastDate,
   Locale? locale,
-  TransitionBuilder? builder,
+  Widget Function(BuildContext context, Widget child)? builder,
 }) async {
   final localizations = locale == null
       ? MaterialLocalizations.of(context)
